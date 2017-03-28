@@ -26,7 +26,7 @@
         </form>
         <!-- Show musician giphs -->
         <div id="musician-view"></div>
-        <img src="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-still="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-animate="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" data-state="still" class="gif">
+        <!-- <img src="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-still="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-animate="http://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" data-state="still" class="gif"> -->
         <footer>
             &copy; Copyright 2017 Sharon Oud
         </footer>
@@ -66,7 +66,20 @@
                 for (var i = 0; i < results.length; i++) {
 
                     // Creating a div to hold musician
-                    var musicianDiv = $("<div class='musician'>");
+                    var musicianDiv = $("<div class='gify'>");
+
+                    
+
+                    // Retrieving the URL for the image
+                    var imgURL = response.Poster;
+
+                    // Creating an element to hold the image
+                    var image = $("<img>");
+
+                    image.attr("src", results[i].images.fixed_height_still.url).attr("data-still", results[i].images.fixed_height_still.url).attr("data-animate", results[i].images.fixed_height.url).attr("data-state", "still").addClass("gif");
+
+                    // Appending the image
+                    musicianDiv.append(image);
 
                     // Storing the rating data and Creating an element to have the rating displayed
                     var rating = $("<p>").text("Rating: " + results[i].rating);
@@ -74,18 +87,26 @@
                     // Displaying the rating
                     musicianDiv.append(rating);
 
-                    // Retrieving the URL for the image
-                    var imgURL = response.Poster;
-
-                    // Creating an element to hold the image
-                    var image = $("<img>").attr("src", results[i].images.fixed_height_still.url, "data-still", results[i].images.fixed_height_still.url, "data-animate", results[i].images.fixed_height.url);
-
-                    // Appending the image
-                    musicianDiv.append(image);
-
                     // Putting the entire movie above the previous movies
                     $("#musician-view").prepend(musicianDiv);
                 }
+
+                        //Pause and play giph
+
+        $(".gif").on("click", function() {
+            // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+            var state = $(this).attr("data-state");
+            // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+            // Then, set the image's data-state to animate
+            // Else set src to the data-still value
+            if (state === "still") {
+                $(this).attr("src", $(this).attr("data-animate"));
+                $(this).attr("data-state", "animate");
+            } else {
+                $(this).attr("src", $(this).attr("data-still"));
+                $(this).attr("data-state", "still");
+            }
+        });
             });
         };
 
@@ -117,10 +138,10 @@
         $("#add-musician").on("click", function(event) {
             event.preventDefault();
             // This line of code will grab the input from the textbox
-            var musician = $("#musicianAdd").val().trim();
+            var musicianNew = $("#musicianAdd").val().trim();
 
             // The musician from the textbox is then added to our array
-            musicians.push(musician);
+            musicians.push(musicianNew);
 
             // Calling renderButtons which handles the processing of our musician array
             renderButtons();
@@ -137,22 +158,7 @@
 
 
 
-        //Pause and play giph
 
-        $(".gif").on("click", function() {
-            // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-            var state = $(this).attr("data-state");
-            // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-            // Then, set the image's data-state to animate
-            // Else set src to the data-still value
-            if (state === "still") {
-                $(this).attr("src", $(this).attr("data-animate"));
-                $(this).attr("data-state", "animate");
-            } else {
-                $(this).attr("src", $(this).attr("data-still"));
-                $(this).attr("data-state", "still");
-            }
-        });
         </script>
     </div>
 </body>
