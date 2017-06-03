@@ -1,7 +1,6 @@
 /** Sharon's CSS3 file **/
 
 html {
-    text-align: center;
     background-color: #ffdbe6;
     background: url(../images/vectorBackground.jpeg) no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -12,8 +11,9 @@ html {
 
 body {
     background: transparent !important;
-    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+    font-family: 'Georgia', Times, Times New Roman, serif;
     font-size: 20px;
+    text-align: center;
 }
 
 h1 {
@@ -30,6 +30,17 @@ div,
 form {
     margin: 15px;
     color: #8800cc;
+}
+
+.center {
+    width: 50% !important;
+    text-align: center !important;
+    margin: auto;
+    color: #006633 !important;
+    background: transparent !important;
+    z-index: 50;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 button,
@@ -53,7 +64,6 @@ p {
     padding-right: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
-    float: left;
 }
 
 footer {
@@ -70,6 +80,5 @@ footer {
 }
 
 img {
-    float: left;
     padding: 20px;
 }
